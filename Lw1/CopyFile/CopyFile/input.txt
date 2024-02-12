@@ -1,0 +1,3 @@
+Hello! 
+I'm student of PGTU. 
+It's my first labs of oop.
