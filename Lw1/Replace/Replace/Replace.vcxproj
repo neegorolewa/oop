@@ -149,9 +149,14 @@
     <None Include="Tests.bat" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Empty.txt" />
-    <Text Include="input1.txt" />
+    <Text Include="big_input.txt" />
+    <Text Include="empty.txt" />
+    <Text Include="input.txt" />
     <Text Include="output.txt" />
+    <Text Include="test11.txt" />
+    <Text Include="test12.txt" />
+    <Text Include="test13.txt" />
+    <Text Include="test14.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

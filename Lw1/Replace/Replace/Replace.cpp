@@ -54,6 +54,12 @@ std::ofstream GetOutputFile(const Args& args)
 std::string ReplaceString(const std::string& subject,
 	const std::string& searchString, const std::string& replacementString)
 {
+
+	if (searchString.empty())
+	{
+		return subject;
+	}
+
 	size_t pos = 0;
 	// Результат будет записан в новую строку result, оставляя строку subject неизменной
 	std::string result;
@@ -102,7 +108,17 @@ int main(int argc, char* argv[])
 
 	CopyStreamWithReplacement(inputFile, outputFile, search, replace);
 	
-	outputFile.flush();
+	if (inputFile.bad())
+	{
+		std::cout << "Failed to read data from input file\n";
+		return 1;
+	}
+
+	if (!outputFile.flush())
+	{
+		std::cout << "Failed to write data to output file\n";
+		return 1;
+	}
 
 	return 0;
 }
