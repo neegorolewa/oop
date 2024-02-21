@@ -16,7 +16,7 @@ std::optional<Args> ParseArguments(int argc, char* argv[])
 	if (argc != 5)
 	{
 		std::cout << "Invalid arguments count\n";
-		std::cout << "Usage: CopyFile.exe <Input file name> <Output file name> <search string> <replace string>\n";
+		std::cout << "Usage: CopyFile.exe <Input file name> <Output file name> <Search string> <Replace string>\n";
 		return std::nullopt;
 	}
 	Args args;
@@ -34,7 +34,6 @@ std::ifstream GetInputFile(Args& args)
 	if (!inputFile.is_open())
 	{
 		std::cout << "Failed to open '" << args.inputFileName << "' for reading\n";
-		return;
 	}
 	return inputFile;
 }
@@ -46,7 +45,6 @@ std::ofstream GetOutputFile(const Args& args)
 	if (!outputFile.is_open())
 	{
 		std::cout << "Failed to open '" << args.outputFileName << "' for writing\n";
-		return;
 	}
 	return outputFile;
 }
@@ -56,22 +54,22 @@ std::ofstream GetOutputFile(const Args& args)
 std::string ReplaceString(const std::string& subject,
 	const std::string& searchString, const std::string& replacementString)
 {
-	// Эта функция написана не до конца. Напишите недостающий код самостоятельно
-
 	size_t pos = 0;
 	// Результат будет записан в новую строку result, оставляя строку subject неизменной
-	// Какие преимущества есть у этого способа по сравнению с алгоритмом, выполняющим
-	// замену прямо в строке subject?
 	std::string result;
 	while (pos < subject.length())
 	{
 		// Находим позицию искомой строки, начиная с pos
 		size_t foundPos = subject.find(searchString, pos);
+		if (foundPos == std::string::npos)
+		{
+			result.append(subject, pos);
+			return result;
+		}
 		// В результирующую строку записываем текст из диапазона [pos,foundPos)
 		result.append(subject, pos, foundPos - pos);
-
-		
-		// Напишите недостающий код самостоятельно, чтобы функция работала корректно
+		result.append(replacementString);
+		pos = foundPos + searchString.length();
 	}
 	return result;
 }
@@ -91,9 +89,10 @@ int main(int argc, char* argv[])
 {
 	auto args = ParseArguments(argc, argv);
 
-	// Самостоятельно выделите код копирования содержимого файла в отдельную функцию CopyFileWithReplacement,
-	// принимающую имена файлов, а также строки для поиска и замены
-	// Добавьте обработку ошибок
+	if (!args)
+	{
+		return 1;
+	}
 
 	std::ifstream inputFile = GetInputFile(args.value());
 	std::ofstream outputFile = GetOutputFile(args.value());
@@ -101,7 +100,7 @@ int main(int argc, char* argv[])
 	std::string search = args->search;
 	std::string replace = args->replace;
 
-	CopyStreamWithReplacement(inputFile, outputFile, args->search, args->replace);
+	CopyStreamWithReplacement(inputFile, outputFile, search, replace);
 	
 	outputFile.flush();
 
