@@ -4,8 +4,8 @@
 #include <fstream>
 #include <string>
 
-const std::string NUMBER_MAGIC = "MAGIC";
-const std::string NUMBER_NON_MAGIC = "NON-MAGIC";
+const std::string MESSAGE_NON_MAGIC = "NON-MAGIC";
+const std::string ERROR = "ERROR";
 
 struct Args
 {
@@ -13,88 +13,86 @@ struct Args
     std::string outputFileName;
 };
 
-//std::optional<Args> ParseArguments(int argc, char* argv[])
-//{
-//    if (argc != 3)
-//    {
-//        std::cout << "Invalid arguments count\n";
-//        std::cout << "Usage: Magic_numers.exe <Input file name> <Output file name>\n";
-//        return std::nullopt;
-//    }
-//    Args args;
-//    args.inputFileName = argv[1];
-//    args.outputFileName = argv[2];
-//    return args;
-//}
-//
-//std::ifstream GetInputFile(Args& args)
-//{
-//    std::ifstream inputFile;
-//    inputFile.open(args.inputFileName);
-//    if (!inputFile.is_open())
-//    {
-//        std::cout << "Failed to open '" << args.inputFileName << "' for reading\n";
-//    }
-//    return inputFile;
-//}
-//
-//std::ofstream GetOutputFile(const Args& args)
-//{
-//    std::ofstream outputFile;
-//    outputFile.open(args.outputFileName);
-//    if (!outputFile.is_open())
-//    {
-//        std::cout << "Failed to open '" << args.outputFileName << "' for writing\n";
-//    }
-//    return outputFile;
-//}
-
-std::uint64_t SumOfDigit(uint64_t num)
+std::optional<Args> ParseArguments(int argc, char* argv[])
 {
-    std::uint64_t sum = 0;
-    while (num != 0)
+    if (argc != 3)
     {
-        sum += num % 10;
-        num = num / 10;
+        std::cout << "Invalid arguments count\n";
+        std::cout << "Usage: Magic_numers.exe <Input file name> <Output file name>\n";
+        return std::nullopt;
     }
-    return sum;
+    Args args;
+    args.inputFileName = argv[1];
+    args.outputFileName = argv[2];
+    return args;
 }
 
-std::string IsMagic(uint64_t number)
+std::ifstream GetInputFile(Args& args)
 {
-    if ((number - SumOfDigit(number)) % 9 != 0)
+    std::ifstream inputFile;
+    inputFile.open(args.inputFileName);
+    if (!inputFile.is_open())
     {
-        return NUMBER_MAGIC ;
+        std::cout << "Failed to open '" << args.inputFileName << "' for reading\n";
     }
-    else
+    return inputFile;
+}
+
+std::ofstream GetOutputFile(const Args& args)
+{
+    std::ofstream outputFile;
+    outputFile.open(args.outputFileName);
+    if (!outputFile.is_open())
     {
-        return NUMBER_NON_MAGIC;
+        std::cout << "Failed to open '" << args.outputFileName << "' for writing\n";
     }
+    return outputFile;
 }
 
 bool IsNonNegativeNumber(std::string line)
 {
-    for ()
+    if (line.empty())
+    {
+        return false;
+    }
+
+    for (int i = 0; i < line.length(); i++)
+    {
+        if (!isdigit(line[i]))
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 int main(int argc, char* argv[])
 {
     // Проверка правильности аргументов командной строки
-    /*auto args = ParseArguments(argc, argv);
+    auto args = ParseArguments(argc, argv);
     if (!args)
     {
         return 1;
-    }*/
+    }
 
-    /*std::ifstream inputFile = GetInputFile(args.value());
-    std::ofstream outputFile = GetOutputFile(args.value());*/
+    std::ifstream inputFile = GetInputFile(args.value());
+    std::ofstream outputFile = GetOutputFile(args.value());
 
-    uint64_t number;
-    std::cin >> number;
+    std::string number;
+    inputFile >> number;
 
-    std::cout << IsMagic(number) << std::endl;
+    if (!IsNonNegativeNumber(number))
+    {
+        outputFile << ERROR << '\n';
+        return 0;
+    }
+    else
+    {
+        outputFile << MESSAGE_NON_MAGIC << '\n';
+        return 0;
+    }
 
-    /*if (inputFile.bad())
+    if (inputFile.bad())
     {
         std::cout << "Failed to read data from input file\n";
         return 1;
@@ -104,7 +102,7 @@ int main(int argc, char* argv[])
     {
         std::cout << "Failed to write data to output file\n";
         return 1;
-    }*/
+    }
 
     return 0;
 

@@ -19,4 +19,21 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="input.txt" />
+    <Text Include="output.txt" />
+    <Text Include="empty.txt" />
+    <Text Include="error.txt" />
+    <Text Include="non-magic.txt" />
+    <Text Include="negative_value.txt" />
+    <Text Include="real_comma_value.txt" />
+    <Text Include="real_dot_value.txt" />
+    <Text Include="non_valid_value.txt" />
+    <Text Include="non_negative_value.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tests.bat">
+      <Filter>Исходные файлы</Filter>
+    </None>
+  </ItemGroup>
 </Project>
