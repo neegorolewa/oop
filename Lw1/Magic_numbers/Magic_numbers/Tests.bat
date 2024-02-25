@@ -6,6 +6,8 @@ if %MyProgram%=="" (
 	exit /B 1
 )
 
+REM "$(ProjectDir)Tests.bat" "$(TargetPath)"
+
 REM If input and output file is not specified, program must be fail
 %MyProgram% && goto err
 echo Test 1 passed
@@ -47,6 +49,11 @@ REM If input file contains a non-negative value than ouptut message is NON-MAGIC
 %MyProgram% non_negative_value.txt output.txt || goto err
 fc output.txt non-magic.txt > nul || goto err
 echo Test 9 passed
+
+REM If input file contains a overflow value than ouptut message is ERROR
+%MyProgram% overflow_number.txt output.txt || goto err
+fc output.txt error.txt > nul || goto err
+echo Test 10 passed
 
 echo All test passed succesfuly
 exit /B 0

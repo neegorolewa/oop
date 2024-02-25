@@ -49,19 +49,32 @@ std::ofstream GetOutputFile(const Args& args)
     return outputFile;
 }
 
-bool IsNonNegativeNumber(std::string line)
+bool NumberIsValid(const std::string& line)
 {
+    uint64_t val = 0;
+    
     if (line.empty())
     {
         return false;
     }
 
-    for (int i = 0; i < line.length(); i++)
+    for (auto ch: line) 
     {
-        if (!isdigit(line[i]))
+        if (!isdigit(ch)) 
         {
             return false;
         }
+
+        // почему < ? <= + тест
+        if (val < UINT64_MAX - ((ch - '0') / 10))
+        {
+            val = (10 * val) + (ch - '0');
+        }
+        else 
+        {
+            return false;
+        }
+        
     }
     return true;
 }
@@ -75,19 +88,20 @@ int main(int argc, char* argv[])
         return 1;
     }
 
+    //использовать cin
     std::ifstream inputFile = GetInputFile(args.value());
     std::ofstream outputFile = GetOutputFile(args.value());
 
     std::string number;
     inputFile >> number;
 
-    if (!IsNonNegativeNumber(number))
+    if (!NumberIsValid(number))
     {
         outputFile << ERROR << '\n';
         return 0;
     }
     else
-    {
+    { 
         outputFile << MESSAGE_NON_MAGIC << '\n';
         return 0;
     }

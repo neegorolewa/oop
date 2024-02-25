@@ -162,6 +162,7 @@
     <Text Include="non_negative_value.txt" />
     <Text Include="non_valid_value.txt" />
     <Text Include="output.txt" />
+    <Text Include="overflow_number.txt" />
     <Text Include="real_comma_value.txt" />
     <Text Include="real_dot_value.txt" />
   </ItemGroup>
