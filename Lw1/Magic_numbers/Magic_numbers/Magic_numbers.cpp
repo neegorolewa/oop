@@ -1,52 +1,20 @@
 ﻿#include <iostream>
 #include <cstdint>
-#include <optional>
-#include <fstream>
 #include <string>
 
 const std::string MESSAGE_NON_MAGIC = "NON-MAGIC";
 const std::string ERROR = "ERROR";
+const char CHAR_0 = '0';
 
-struct Args
+bool CheckedArguments(int argc, char* argv[])
 {
-    std::string inputFileName;
-    std::string outputFileName;
-};
-
-std::optional<Args> ParseArguments(int argc, char* argv[])
-{
-    if (argc != 3)
+    if (argc != 1)
     {
         std::cout << "Invalid arguments count\n";
-        std::cout << "Usage: Magic_numers.exe <Input file name> <Output file name>\n";
-        return std::nullopt;
+        std::cout << "Usage: Magic_numers.exe\n";
+        return false;
     }
-    Args args;
-    args.inputFileName = argv[1];
-    args.outputFileName = argv[2];
-    return args;
-}
-
-std::ifstream GetInputFile(Args& args)
-{
-    std::ifstream inputFile;
-    inputFile.open(args.inputFileName);
-    if (!inputFile.is_open())
-    {
-        std::cout << "Failed to open '" << args.inputFileName << "' for reading\n";
-    }
-    return inputFile;
-}
-
-std::ofstream GetOutputFile(const Args& args)
-{
-    std::ofstream outputFile;
-    outputFile.open(args.outputFileName);
-    if (!outputFile.is_open())
-    {
-        std::cout << "Failed to open '" << args.outputFileName << "' for writing\n";
-    }
-    return outputFile;
+    return true;
 }
 
 bool NumberIsValid(const std::string& line)
@@ -65,10 +33,9 @@ bool NumberIsValid(const std::string& line)
             return false;
         }
 
-        // почему < ? <= + тест
-        if (val < UINT64_MAX - ((ch - '0') / 10))
+        if (val <= (UINT64_MAX - (ch - CHAR_0)) / 10)
         {
-            val = (10 * val) + (ch - '0');
+            val = (10 * val) + (ch - CHAR_0);
         }
         else 
         {
@@ -82,39 +49,34 @@ bool NumberIsValid(const std::string& line)
 int main(int argc, char* argv[])
 {
     // Проверка правильности аргументов командной строки
-    auto args = ParseArguments(argc, argv);
-    if (!args)
+    if (!CheckedArguments(argc, argv))
     {
         return 1;
     }
 
-    //использовать cin
-    std::ifstream inputFile = GetInputFile(args.value());
-    std::ofstream outputFile = GetOutputFile(args.value());
-
     std::string number;
-    inputFile >> number;
+    std::cin >> number;
 
     if (!NumberIsValid(number))
     {
-        outputFile << ERROR << '\n';
+        std::cout << ERROR << '\n';
         return 0;
     }
     else
     { 
-        outputFile << MESSAGE_NON_MAGIC << '\n';
+        std::cout << MESSAGE_NON_MAGIC << '\n';
         return 0;
     }
 
-    if (inputFile.bad())
+    if (std::cin.bad())
     {
-        std::cout << "Failed to read data from input file\n";
+        std::cout << "Failed to read data from input stream\n";
         return 1;
     }
 
-    if (!outputFile.flush())
+    if (!std::cout.flush())
     {
-        std::cout << "Failed to write data to output file\n";
+        std::cout << "Failed to write data to output stream\n";
         return 1;
     }
 
