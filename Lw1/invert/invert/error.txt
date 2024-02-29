@@ -1,0 +1,3 @@
+Failed to read input file
+Input file consist of float number and size of matrix must be 3*3
+Ñheck if the input file is empty

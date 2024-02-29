@@ -15,16 +15,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="invert.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="tests.bat">
       <Filter>Исходные файлы</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt" />
+    <Text Include="input1.txt" />
+    <Text Include="input_zero_det.txt" />
+    <Text Include="empty.txt" />
+    <Text Include="output.txt" />
+    <Text Include="error.txt" />
+    <Text Include="message_zero_det.txt" />
+    <Text Include="output2.txt" />
+    <Text Include="input2.txt" />
+    <Text Include="input3.txt" />
+    <Text Include="output3.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="invert.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
