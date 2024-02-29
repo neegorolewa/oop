@@ -5,6 +5,7 @@
 #include <sstream>
 #include <algorithm> 
 #include <cmath>
+#include <iomanip>
 
 const int SIZE_OF_MATRIX = 3;
 const char SPACE = ' ';
@@ -88,7 +89,7 @@ void PrintMatrix(std::array<std::array<float, SIZE_OF_MATRIX>, SIZE_OF_MATRIX>& 
 	{
 		for (int j = 0; j < SIZE_OF_MATRIX; j++)
 		{
-			std::cout << matrix[i][j];
+			std::cout << std::setw(5)<< std::left << matrix[i][j];
 			if (j != 2)
 			{
 				std::cout << SPACE;

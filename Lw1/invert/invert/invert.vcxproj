@@ -145,13 +145,17 @@
     <None Include="tests.bat" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="absent_elem.txt" />
     <Text Include="empty.txt" />
     <Text Include="error.txt" />
     <Text Include="input1.txt" />
     <Text Include="input2.txt" />
     <Text Include="input3.txt" />
     <Text Include="input_zero_det.txt" />
+    <Text Include="matrix_2x2.txt" />
+    <Text Include="matrix_4x4.txt" />
     <Text Include="message_zero_det.txt" />
+    <Text Include="not_matrix.txt" />
     <Text Include="output.txt" />
     <Text Include="output2.txt" />
     <Text Include="output3.txt" />

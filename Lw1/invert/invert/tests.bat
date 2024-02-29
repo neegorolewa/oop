@@ -31,6 +31,22 @@ REM Test input2.txt
 fc output.txt output3.txt > nul || goto err
 echo Test 5 passed
 
+REM If size of matrix < 3x3, program must be fail
+%MyProgram% matrix_2x2.txt && goto err
+echo Test 6 passed
+
+REM If size of matrix > 3x3, program must be fail
+%MyProgram% matrix_4x4.txt && goto err
+echo Test 7 passed
+
+REM If in matrix 3x3 absent 1 element
+%MyProgram% absent_elem.txt && goto err
+echo Test 8 passed
+
+REM If input file not matrix
+%MyProgram% not_matrix.txt && goto err
+echo Test 9 passed
+
 echo All test passed succesfuly
 exit /B 0
 
