@@ -7,6 +7,7 @@ std::string HtmlDecode(const std::string& subject)
 	int pos = 0;
 	while (pos < subject.size())
 	{
+
 		if (subject[pos] == '&')
 		{
 			if (subject.substr(pos, 6) == "&quot;")
@@ -34,6 +35,7 @@ std::string HtmlDecode(const std::string& subject)
 				decodedLine += '&';
 				pos += 5;
 			}
+			//дублирование
 			else
 			{
 				decodedLine += subject[pos];

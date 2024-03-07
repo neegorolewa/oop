@@ -4,6 +4,8 @@
 #include "../../../catch.hpp"
 #include "../HtmlDecode/HtmlDecode.h"
 
+//Добавить тест амперсанд последнее место
+
 SCENARIO("Decode empty string gives empty string")
 {
 	REQUIRE(HtmlDecode("").empty());
@@ -24,10 +26,21 @@ SCENARIO("If there is an error in the html-entity")
 	REQUIRE(HtmlDecode("Cat &tl;says&gt; &quot;Meow&quot;. M&amp;M&apos;s") == "Cat &tl;says> \"Meow\". M&M's");
 }
 
+SCENARIO("If html-entity in the end")
+{
+	REQUIRE(HtmlDecode("Cat &amp;") == "Cat &");
+}
+
+SCENARIO("If input stream consist of one html-entity")
+{
+	REQUIRE(HtmlDecode("&amp;") == "&");
+}
+
 SCENARIO("DecodeLines")
 {
 	std::ostringstream output;
-	WHEN("If input stream is empty")
+
+	WHEN("Input stream is empty")
 	{
 		std::istringstream input("");
 		THEN("Output stream also is empty")
@@ -38,7 +51,7 @@ SCENARIO("DecodeLines")
 		}
 	}
 
-	WHEN("If input stream consist of one line")
+	WHEN("Input stream consist of one line")
 	{
 		std::istringstream input("Cat &lt;says&gt; &quot;Meow&quot;. M&amp;M&apos;s");
 		THEN("Output stream is decoded")
@@ -49,7 +62,7 @@ SCENARIO("DecodeLines")
 		}
 	}
 
-	WHEN("If input stream consist of several line")
+	WHEN("Input stream consist of several line")
 	{
 		std::istringstream input("Cat &lt;says&gt;\n&quot;Meow&quot;. M&amp;M&apos;s");
 		THEN("Output stream is decoded several lines")

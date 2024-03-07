@@ -12,6 +12,7 @@ const char SPACE = ' ';
 const int NEGATIVE_SIGN = -1;
 const int NEGATIVE_ZERO = -0;
 
+//занести проверку аргументов сюда 
 bool CheckValidArguments(const int argc)
 {
     if (argc != 2)
@@ -25,6 +26,7 @@ bool CheckValidArguments(const int argc)
 
 std::ifstream GetInputFile(const std::string& inputFileName)
 {
+	//Открывать через инициализацию, через стандартный констркутор
 	std::ifstream inputFile;
 	inputFile.open(inputFileName);
 	if (!inputFile.is_open())
@@ -41,6 +43,7 @@ bool AppendDataInMatrix(std::string& line, std::array<std::array<float, SIZE_OF_
 	float number;
 	while (data >> number)
 	{
+		//FOR!!
 		if (countNumber > 2)
 		{
 			return false;
@@ -55,6 +58,7 @@ bool AppendDataInMatrix(std::string& line, std::array<std::array<float, SIZE_OF_
 	return true;
 }
 
+//оператор умеет сам считывать из потока!!
 bool ReadMatrixFromFile(std::istream& input, std::array<std::array<float, SIZE_OF_MATRIX>, SIZE_OF_MATRIX>& matrix)
 {
 	std::string line;
@@ -66,6 +70,7 @@ bool ReadMatrixFromFile(std::istream& input, std::array<std::array<float, SIZE_O
 		{
 			return false;
 		}
+		//лучше использовать for , если знаем количество иттераций
 		if (row > 2)
 		{
 			return false;
@@ -104,11 +109,9 @@ void PrintMatrix(std::array<std::array<float, SIZE_OF_MATRIX>, SIZE_OF_MATRIX>& 
 
 float DefinitionOfDeterminant(std::array<std::array<float, SIZE_OF_MATRIX>, SIZE_OF_MATRIX>& matrix)
 {
-	float determinant = matrix[0][0] * matrix[1][1] * matrix[2][2] + matrix[1][0] * matrix[2][1] * matrix[0][2] +
+	return matrix[0][0] * matrix[1][1] * matrix[2][2] + matrix[1][0] * matrix[2][1] * matrix[0][2] +
 		matrix[0][1] * matrix[1][2] * matrix[2][0] - matrix[0][2] * matrix[1][1] * matrix[2][0] -
 		matrix[1][0] * matrix[0][1] * matrix[2][2] - matrix[0][0] * matrix[2][1] * matrix[1][2];
-
-	return determinant;
 }
 
 void TranspositionOfMatrix(std::array<std::array<float, SIZE_OF_MATRIX>, SIZE_OF_MATRIX>& matrix)
@@ -216,8 +219,7 @@ int main(int argc, char* argv[])
 	std::ifstream inputFile = GetInputFile(argv[1]);
 
 	std::array<std::array<float, SIZE_OF_MATRIX>, SIZE_OF_MATRIX> matrix;
-	float determinant;
-
+	
 	if (!ReadMatrixFromFile(inputFile, matrix))
 	{
 		std::cout << "Failed to read input file\n";
@@ -226,7 +228,9 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	determinant = DefinitionOfDeterminant(matrix);
+	float determinant = DefinitionOfDeterminant(matrix);
+
+	//прочесть что у потока есть св-во вывода до опр знака!!!
 	if (determinant != 0)
 	{
 		determinant = RoundValue(determinant);
