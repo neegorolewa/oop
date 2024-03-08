@@ -66,6 +66,7 @@ std::string HtmlDecode(const std::string& subject)
 			}
 		}
 	}
+
 	return decodedLine;
 }
 
