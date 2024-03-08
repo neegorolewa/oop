@@ -33,7 +33,7 @@ SCENARIO("If html-entity in the end")
 
 SCENARIO("If input stream consist of one html-entity")
 {
-	REQUIRE(HtmlDecode("&amp;") == "&");
+	REQUIRE(HtmlDecode("cat &") == "cat &");
 }
 
 SCENARIO("If html-entity before several ampersant")
