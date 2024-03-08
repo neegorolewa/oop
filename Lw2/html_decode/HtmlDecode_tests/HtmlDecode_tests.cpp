@@ -36,6 +36,11 @@ SCENARIO("If input stream consist of one html-entity")
 	REQUIRE(HtmlDecode("&amp;") == "&");
 }
 
+SCENARIO("If html-entity before several ampersant")
+{
+	REQUIRE(HtmlDecode("&&&&amp;") == "&&&&");
+}
+
 SCENARIO("DecodeLines")
 {
 	std::ostringstream output;
