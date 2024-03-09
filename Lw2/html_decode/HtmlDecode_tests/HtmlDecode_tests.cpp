@@ -4,8 +4,6 @@
 #include "../../../catch.hpp"
 #include "../HtmlDecode/HtmlDecode.h"
 
-//Добавить тест амперсанд последнее место
-
 SCENARIO("Decode empty string gives empty string")
 {
 	REQUIRE(HtmlDecode("").empty());
@@ -26,12 +24,7 @@ SCENARIO("If there is an error in the html-entity")
 	REQUIRE(HtmlDecode("Cat &tl;says&gt; &quot;Meow&quot;. M&amp;M&apos;s") == "Cat &tl;says> \"Meow\". M&M's");
 }
 
-SCENARIO("If html-entity in the end")
-{
-	REQUIRE(HtmlDecode("Cat &amp;") == "Cat &");
-}
-
-SCENARIO("If input stream consist of one html-entity")
+SCENARIO("If ampersand in the end")
 {
 	REQUIRE(HtmlDecode("cat &") == "cat &");
 }

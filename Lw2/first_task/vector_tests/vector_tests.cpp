@@ -3,7 +3,7 @@
 #include <string>
 #define CATCH_CONFIG_MAIN
 #include "../../../catch.hpp"
-#include "../first_task/Add.h"
+#include "../first_task/WorkWithVector.h"
 
 SCENARIO("If input stream is empty")
 {

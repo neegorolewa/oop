@@ -127,11 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\first_task\Add.cpp" />
+    <ClCompile Include="..\first_task\DivArrayOnHalfOfMax.cpp" />
     <ClCompile Include="vector_tests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\first_task\Add.h" />
+    <ClInclude Include="..\first_task\WorkWithVector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

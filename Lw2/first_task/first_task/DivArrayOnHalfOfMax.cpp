@@ -1,4 +1,4 @@
-#include "Add.h"
+#include "WorkWithVector.h"
 #include <algorithm>
 #include <iomanip>
 #include <vector>
@@ -20,3 +20,4 @@ void DivArrayOnHalfOfMax(std::vector<double>& numbers)
 		}
 	}
 }
+

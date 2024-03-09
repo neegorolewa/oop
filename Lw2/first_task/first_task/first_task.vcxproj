@@ -128,11 +128,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Add.cpp" />
+    <ClCompile Include="DivArrayOnHalfOfMax.cpp" />
+    <ClCompile Include="PrintVector.cpp" />
     <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Add.h" />
+    <ClInclude Include="WorkWithVector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

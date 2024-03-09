@@ -18,12 +18,15 @@
     <ClCompile Include="vector.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Add.cpp">
+    <ClCompile Include="DivArrayOnHalfOfMax.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="PrintVector.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Add.h">
+    <ClInclude Include="WorkWithVector.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
