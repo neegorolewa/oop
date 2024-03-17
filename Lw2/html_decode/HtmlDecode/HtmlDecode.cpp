@@ -60,7 +60,6 @@ std::string HtmlDecode(const std::string& subject)
 	int pos = 0;
 	while (pos < subject.size())
 	{
-		//сделать читаемо (map, отд ф-ия)
 		if (subject[pos] != AMPERSANT_SIGN)
 		{
 			decodedLine += subject[pos];
