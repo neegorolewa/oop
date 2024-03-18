@@ -7,7 +7,7 @@
 #include <sstream>
 #include <conio.h>
 
-const char SEPARATOR = '-';
+const std::string SEPARATOR = "-";
 
 struct Args
 {
@@ -58,8 +58,9 @@ void TranslateWord(std::string& word, std::map<std::string, std::list<std::strin
 		if (!translate.empty())
 		{
 			dict[word].push_back(translate);
-			std::cout << "Слово \"" << word << "\"сохранено в словаре как\"" << translate << "\".\n";
+			std::cout << "Слово \"" << word << "\" сохранено в словаре как \"" << translate << "\".\n";
 			changes = true;
+
 		}
 		else
 		{
@@ -99,10 +100,10 @@ void SaveDictionary(std::string fileName, std::map<std::string, std::list<std::s
 	if (dictFile.is_open())
 	{
 		for (const auto& pair : dict) {
-			dictFile << pair.first << " - ";
+			dictFile << pair.first << " " << SEPARATOR << " ";
 			for (auto it = pair.second.begin(); it != pair.second.end(); ++it) {
 				if (it != pair.second.begin()) {
-					std::cout << ",";
+					dictFile << ",";
 				}
 				dictFile << *it;
 			}
