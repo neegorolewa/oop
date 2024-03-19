@@ -18,8 +18,16 @@
     <ClCompile Include="dictionary.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="dictionaryFunc.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="dict.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dictionaryFunc.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

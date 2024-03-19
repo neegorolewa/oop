@@ -132,9 +132,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dictionary.cpp" />
+    <ClCompile Include="dictionaryFunc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="dict.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dictionaryFunc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

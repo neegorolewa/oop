@@ -1,1 +1,9 @@
+dog - собака
+house - дом
+the red square - красная площадь
 tree - дерево
+дома - in house
+кот - cat
+кошка - cat
+мама - mother
+мамуля - mother
