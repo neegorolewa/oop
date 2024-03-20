@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	std::ifstream inputFile = GetInputFile(argv[1]);
+	std::ifstream inputFile = GetInputFile(argv[1], std::cout);
 
 	std::map<std::string, std::list<std::string>> dictionary;
 
@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 
 	while (true)
 	{
-		std::string word = GetWordFromUser();
+		std::string word = GetWordFromUser(std::cin);
 
 		if (word == END_PROGRAM)
 		{
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 			break;
 		};
 
-		TranslateWord(word, dictionary, changes);
+		TranslateWord(std::cin, std::cout, word, dictionary, changes);
 	}
 
 	return 0;

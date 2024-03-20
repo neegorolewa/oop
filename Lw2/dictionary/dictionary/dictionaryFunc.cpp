@@ -1,7 +1,7 @@
 #include "dictionaryFunc.h";
 
 const std::string SEPARATOR = "-";
-const std::string COMMA = ",";
+const std::string COMMA = ", ";
 const std::string SPACE = " ";
 
 bool CheckArguments(const int argc)
@@ -15,29 +15,29 @@ bool CheckArguments(const int argc)
 	return true;
 }
 
-std::ifstream GetInputFile(const std::string& inputFileName)
+std::ifstream GetInputFile(const std::string& inputFileName, std::ostream& output)
 {
 	std::ifstream inputFile(inputFileName);
 	if (!inputFile.is_open())
 	{
-		std::cout << "Failed to open '" << inputFileName << "' for reading\n";
+		output << "Failed to open '" << inputFileName << "' for reading\n";
 		exit(1);
 	}
 	return inputFile;
 }
 
-void TranslateWord(std::string& word, std::map<std::string, std::list<std::string>>& dict, bool& changes)
+void TranslateWord(std::istream& input, std::ostream& output, std::string& word, std::map<std::string, std::list<std::string>>& dict, bool& changes)
 {
 	auto it = dict.find(word);
 	if (it != dict.end())
 	{
 		for (auto it_trans = it->second.begin(); it_trans != it->second.end(); ++it_trans) {
 			if (it_trans != it->second.begin()) {
-				std::cout << COMMA;
+				output << COMMA;
 			}
-			std::cout << *it_trans;
+			output << *it_trans;
 		}
-		std::cout << std::endl;
+		output << std::endl;
 	}
 	else
 	{
@@ -52,9 +52,9 @@ void TranslateWord(std::string& word, std::map<std::string, std::list<std::strin
 
 				if (!isFirst)
 				{
-					std::cout << COMMA << SPACE;
+					output << COMMA;
 				}
-				std::cout << pair.first;
+				output << pair.first;
 
 				isFirst = false;
 			}
@@ -62,25 +62,25 @@ void TranslateWord(std::string& word, std::map<std::string, std::list<std::strin
 
 		if (found)
 		{
-			std::cout << std::endl;
+			output << '\n';
 		}
 
 		if (!found)
 		{
 			std::string translate;
-			std::cout << "Неизвестное слово \"" << word << "\". Введите перевод или пустую строку для отказа.\n";
-			std::getline(std::cin, translate);
+			output << "Неизвестное слово \"" << word << "\". Введите перевод или пустую строку для отказа.\n";
+			std::getline(input, translate);
 
 			if (!translate.empty())
 			{
 				dict[word].push_back(translate);
-				std::cout << "Слово \"" << word << "\" сохранено в словаре как \"" << translate << "\".\n";
+				output << "Слово \"" << word << "\" сохранено в словаре как \"" << translate << "\".\n";
 				changes = true;
 
 			}
 			else
 			{
-				std::cout << "Cлово \"" << word << "\" проигнорировано\n";
+				output << "Cлово \"" << word << "\" проигнорировано\n";
 			}
 		}
 	}
@@ -100,8 +100,14 @@ std::map<std::string, std::list<std::string>> GetDictionary(std::ifstream& file)
 
 			std::istringstream iss(translations);
 			std::string translation;
+
 			while (std::getline(iss, translation, ','))
 			{
+				size_t start = translation.find_first_not_of(' ');
+				if (start != std::string::npos) {
+					translation = translation.substr(start);
+				}
+
 				dict[word].push_back(translation);
 			}
 		}
@@ -129,10 +135,10 @@ void SaveDictionary(std::string fileName, std::map<std::string, std::list<std::s
 	}
 }
 
-std::string GetWordFromUser()
+std::string GetWordFromUser(std::istream& input)
 {
 	std::string word;
-	std::getline(std::cin, word);
+	std::getline(input, word);
 	std::transform(word.begin(), word.end(), word.begin(), [](unsigned char ch)
 		{
 			return std::tolower(ch);

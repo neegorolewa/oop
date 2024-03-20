@@ -24,6 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\dictionary\dict.txt" />
+    <Text Include="emptyDict.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\dictionary\dictionaryFunc.h">
