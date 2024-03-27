@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 			break;
 		};
 
-		TranslateWord(std::cin, std::cout, word, dictionary, changes);
+		TranslateWord(std::cout, word, dictionary, changes);
 	}
 
 	return 0;

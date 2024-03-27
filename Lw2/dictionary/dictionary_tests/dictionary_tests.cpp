@@ -3,16 +3,18 @@
 #include "../../../catch.hpp"
 #include "../dictionary/dictionaryFunc.h"
 
-//придумать способ разделять символы (+ для хранения нескольких переводов)
+typedef  std::map<std::string, std::list<std::string>> Dictionary;
+
+//придумать способ разделять символы (+ для хранения нескольких переводов) (ВЫПОЛНЕНО)
 SCENARIO("Empty input file give empty dictionary")
 {
 	std::string dictFileName = "emptyDict.txt";
 	std::ofstream output;
 	std::ifstream dictFile = GetInputFile(dictFileName, output);
 
-	//длинный тип (изменить на короткий)
-	std::map<std::string, std::list<std::string>> dictFromFile;
-	std::map<std::string, std::list<std::string>> rightDict = {};
+	//длинный тип (изменить на короткий) (ВЫПОЛНЕНО)
+	Dictionary dictFromFile;
+	Dictionary rightDict = {};
 
 	dictFromFile = GetDictionary(dictFile);
 	REQUIRE(dictFromFile == rightDict);
@@ -24,11 +26,10 @@ SCENARIO("GetDictionary gives true dictionary from file")
 	std::ostringstream output;
 	std::ifstream dictFile = GetInputFile(dictFileName, output);
 
-	std::map<std::string, std::list<std::string>> dictFromFile;
-	std::map<std::string, std::list<std::string>> rightDict = {
+	Dictionary dictFromFile;
+	Dictionary rightDict = {
 		{"dog", {"собака"}},
 		{"house", {"дом"}},
-		{"cat", {"кошка", "кот", "котяра"}}
 	};
 
 	dictFromFile = GetDictionary(dictFile);
@@ -37,17 +38,16 @@ SCENARIO("GetDictionary gives true dictionary from file")
 
 SCENARIO("Getting a word from the user")
 {
-	std::map<std::string, std::list<std::string>> rightDict = {
+	Dictionary rightDict = {
 		   {"dog", {"собака"}},
 		   {"house", {"дом"}},
-		   {"cat", {"кошка", "кот", "котяра"}}
 	};
 
 	std::istringstream wordLowerCase("dog");
 	std::istringstream wordDiffCase("DoG");
 	std::string rightWord = "dog";
 
-	//изучить инструкцию тестов в bdd стиле when than given
+	//изучить инструкцию тестов в bdd стиле when than given (ВЫПОЛНЕНО)
 	WHEN("Word in lower case")
 	{
 		std::string word = GetWordFromUser(wordLowerCase);
@@ -63,7 +63,7 @@ SCENARIO("Getting a word from the user")
 
 SCENARIO("User's word has a translation, translation should be in console")
 {
-	std::map<std::string, std::list<std::string>> dict = {
+	Dictionary dict = {
 			{"dog", {"собака"}},
 			{"house", {"дом"}},
 			{"кошка", {"cat"}},
@@ -72,24 +72,28 @@ SCENARIO("User's word has a translation, translation should be in console")
 
 	WHEN("Translate RU->EN")
 	{
-		std::istringstream input;
 		std::ostringstream output;
 		bool changes = false;
 		std::string word = "dog";
 
-		TranslateWord(input, output, word, dict, changes);
-		CHECK(output.str() == "собака\n");
+		THEN("Translate will be done")
+		{
+			TranslateWord(output, word, dict, changes);
+			CHECK(output.str() == "собака\n");
+		}
 	}
 
 	WHEN("Translate EN->RU")
 	{
-		std::istringstream input;
 		std::ostringstream output;
 		bool changes = false;
 		std::string word = "собака";
 
-		TranslateWord(input, output, word, dict, changes);
-		CHECK(output.str() == "dog\n");
+		THEN("Translate will be done")
+		{
+			TranslateWord(output, word, dict, changes);
+			CHECK(output.str() == "dog\n");
+		}
 	}
 
 	WHEN("Translation belongs to two words")
@@ -99,14 +103,17 @@ SCENARIO("User's word has a translation, translation should be in console")
 		bool changes = false;
 		std::string word = "cat";
 
-		TranslateWord(input, output, word, dict, changes);
-		CHECK(output.str() == "кот, кошка\n");
+		THEN("Translate will be done")
+		{
+			TranslateWord(output, word, dict, changes);
+			CHECK(output.str() == "кот, кошка\n");
+		}
 	}
 }
 
 SCENARIO("Word translation not found")
 {
-	std::map<std::string, std::list<std::string>> dict = {
+	Dictionary dict = {
 			{"dog", {"собака"}},
 			{"house", {"дом"}},
 			{"кошка", {"cat"}},
@@ -121,12 +128,14 @@ SCENARIO("Word translation not found")
 		std::ostringstream output;
 		std::istringstream input("дерево");
 
+		THEN("Will be output text about not found word and text about right save")
+		{
+			changes = WorkIfWordNotFound(word, dict, input, output);
+			CHECK(output.str() == "Неизвестное слово \"" + word + "\". Введите перевод или пустую строку для отказа.\n"
+				+ "Слово \"" + word + "\" сохранено в словаре как \"" + translate + "\".\n");
 
-		TranslateWord(input, output, word, dict, changes);
-		CHECK(output.str() == "Неизвестное слово \"" + word + "\". Введите перевод или пустую строку для отказа.\n" 
-			+ "Слово \"" + word + "\" сохранено в словаре как \"" + translate + "\".\n");
-
-		CHECK(changes == true);
+			CHECK(changes == true);
+		}
 	}
 
 	WHEN("User doesn't add a new word to the dictionary")
@@ -136,11 +145,15 @@ SCENARIO("Word translation not found")
 		std::ostringstream output;
 		std::istringstream input("");
 
-		TranslateWord(input, output, word, dict, changes);
+		THEN("Will be output text about not found word and text about ignore new word")
 
-		CHECK(output.str() == "Неизвестное слово \"" + word + "\". Введите перевод или пустую строку для отказа.\n"
-			+ "Cлово \"" + word + "\" проигнорировано\n");
-		CHECK(changes == false);
+		{
+			changes = WorkIfWordNotFound(word, dict, input, output);
+
+			CHECK(output.str() == "Неизвестное слово \"" + word + "\". Введите перевод или пустую строку для отказа.\n"
+				+ "Cлово \"" + word + "\" проигнорировано\n");
+			CHECK(changes == false);
+		}
 	}
 
 }
@@ -150,14 +163,14 @@ SCENARIO("Сhecking dictionary saving")
 	char tempFileName[L_tmpnam_s];
 	tmpnam_s(tempFileName);
 
-	std::map<std::string, std::list<std::string>> dict = {
+	Dictionary dict = {
 			{"dog", {"собака"}},
 			{"house", {"дом"}},
 			{"кошка", {"cat"}},
 			{"кот", {"cat"}},
 	};
 
-	std::map<std::string, std::list<std::string>> dictNew = {
+	Dictionary dictNew = {
 			{"dog", {"собака"}},
 			{"house", {"дом"}},
 			{"кошка", {"cat"}},
@@ -171,14 +184,17 @@ SCENARIO("Сhecking dictionary saving")
 	
 	WHEN("User save changes")
 	{
-		std::map<std::string, std::list<std::string>> dictFromFile;
+		Dictionary dictFromFile;
 		std::istringstream translate("дерево");
 
-		TranslateWord(translate, output, word, dict, changes);
-		SaveDictionary(tempFileName, dict);
-		std::ifstream dictFile = GetInputFile(tempFileName, output);
-		dictFromFile = GetDictionary(dictFile);
+		THEN("Dictionary will be right saving")
+		{
+			WorkIfWordNotFound(word, dict, translate, output);
+			SaveDictionary(tempFileName, dict);
+			std::ifstream dictFile = GetInputFile(tempFileName, output);
+			dictFromFile = GetDictionary(dictFile);
 
-		CHECK(dictFromFile == dictNew);
+			CHECK(dictFromFile == dictNew);
+		}
 	}
 }

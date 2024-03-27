@@ -1,8 +1,10 @@
 #include "dictionaryFunc.h";
 
-const std::string SEPARATOR = "-";
+const std::string SEPARATOR = ":";
 const std::string COMMA = ", ";
 const std::string SPACE = " ";
+
+typedef  std::map<std::string, std::list<std::string>> Dictionary;
 
 bool CheckArguments(const int argc)
 {
@@ -26,70 +28,99 @@ std::ifstream GetInputFile(const std::string& inputFileName, std::ostream& outpu
 	return inputFile;
 }
 
-//разделить функцию (исключить огромное количество параметров)
-//какие проблемы с выходными аргументами
-void TranslateWord(std::istream& input, std::ostream& output, std::string& word, std::map<std::string, std::list<std::string>>& dict, bool& changes)
+bool FindWordInDictionary(std::string& word, Dictionary dict)
 {
+	bool found = false;
+
 	auto it = dict.find(word);
+
 	if (it != dict.end())
 	{
-		for (auto it_trans = it->second.begin(); it_trans != it->second.end(); ++it_trans) {
-			if (it_trans != it->second.begin()) {
-				output << COMMA;
-			}
-			output << *it_trans;
-		}
-		output << std::endl;
+		found = true;
 	}
 	else
 	{
-		bool found = false;
-		bool isFirst = true;
-
 		for (const auto& pair : dict)
 		{
 			if (pair.second.back() == word)
 			{
 				found = true;
-
-				if (!isFirst)
-				{
-					output << COMMA;
-				}
-				output << pair.first;
-
-				isFirst = false;
-			}
-		}
-
-		if (found)
-		{
-			output << '\n';
-		}
-
-		if (!found)
-		{
-			std::string translate;
-			output << "Неизвестное слово \"" << word << "\". Введите перевод или пустую строку для отказа.\n";
-			std::getline(input, translate);
-
-			if (!translate.empty())
-			{
-				dict[word].push_back(translate);
-				output << "Слово \"" << word << "\" сохранено в словаре как \"" << translate << "\".\n";
-				changes = true;
-
-			}
-			else
-			{
-				output << "Cлово \"" << word << "\" проигнорировано\n";
 			}
 		}
 	}
+
+	return found;
 }
 
-//не использовать прямой передачу ifstream (istream)!!!
-std::map<std::string, std::list<std::string>> GetDictionary(std::ifstream& file)
+bool WorkIfWordNotFound(std::string word, Dictionary& dict, std::istream& input, std::ostream& output)
+{
+	bool changes = false;
+	std::string translate;
+	output << "Неизвестное слово \"" << word << "\". Введите перевод или пустую строку для отказа.\n";
+	std::getline(input, translate);
+
+	if (!translate.empty())
+	{
+		dict[word].push_back(translate);
+		output << "Слово \"" << word << "\" сохранено в словаре как \"" << translate << "\".\n";
+		changes = true;
+
+	}
+	else
+	{
+		output << "Cлово \"" << word << "\" проигнорировано\n";
+	}
+
+	return changes;
+}
+
+//разделить функцию (исключить огромное количество параметров) ВЫПОЛНЕНО
+void TranslateWord(std::ostream& output, std::string& word, Dictionary& dict, bool& changes)
+{
+	bool wordInDict = FindWordInDictionary(word, dict);
+
+	if (wordInDict)
+	{
+		auto it = dict.find(word);
+		if (it != dict.end())
+		{
+			for (auto it_trans = it->second.begin(); it_trans != it->second.end(); ++it_trans) {
+				if (it_trans != it->second.begin()) {
+					output << COMMA;
+				}
+				output << *it_trans;
+			}
+			output << '\n';
+		}
+		else
+		{
+			bool isFirst = true;
+
+			for (const auto& pair : dict)
+			{
+				if (pair.second.back() == word)
+				{
+					if (!isFirst)
+					{
+						output << COMMA;
+					}
+					output << pair.first;
+
+					isFirst = false;
+				}
+			}
+				
+			output << '\n';
+		}
+	}
+	else
+	{
+		changes = WorkIfWordNotFound(word, dict, std::cin, std::cout);
+	}
+}
+
+//не использовать прямой передачу ifstream (istream)!!! ВЫПОЛНЕНО
+Dictionary GetDictionary(std::istream& file)
 {
 	std::map<std::string, std::list<std::string>> dict;
 	std::string line;
@@ -119,7 +150,7 @@ std::map<std::string, std::list<std::string>> GetDictionary(std::ifstream& file)
 	return dict;
 }
 
-void SaveDictionary(std::string fileName, std::map<std::string, std::list<std::string>>& dict)
+void SaveDictionary(std::string fileName, Dictionary& dict)
 {
 	std::ofstream dictFile(fileName);
 
