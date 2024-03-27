@@ -1,6 +1,6 @@
 #include "GetPrimeNumberSet.h"
 
-// сделать чтобы тест на 100млн запускалс€ только в релизе, и написать в чат(ооп)
+// сделать чтобы тест на 100млн запускалс€ только в релизе, и написать в чат(ооп) (¬џѕќЋЌ≈Ќќ)
 std::set<int> GeneratePrimeNumbersSet(int upperBound)
 {
 	std::vector<int> isPrime(upperBound + 1, true);
@@ -8,27 +8,28 @@ std::set<int> GeneratePrimeNumbersSet(int upperBound)
 
 	isPrime[0] = false;
 
-	//почему i^2
+	//почему i^2 (исключаем ближайшее число не простое дл€ данного i)
 	for (int i = 2; i * i <= upperBound; ++i)
 	{
 		if (isPrime[i])
 		{
-			// -||-
-			//ускорить цикл в 2 раза
-			for (int j = i * i; j <= upperBound; j += i)
+			//ускорить цикл в 2 раза (¬џѕќЋЌ≈Ќќ)
+
+			int step = (i == 2) ? i : i * 2;
+
+			for (int j = i * i; j <= upperBound; j += step)
 			{
 				isPrime[j] = false;
 			}
 		}
 	}
 
-	//ускорить цикл и проверить врем€
 	for (int i = 2; i <= upperBound; ++i)
 	{
 		if (isPrime[i])
 		{
-			//прочитать про метод Insert и ускорить вставить еще !!!
-			primesNum.insert(i);
+			//прочитать про метод Insert и ускорить вставить еще !!!(¬џѕќЋЌ≈Ќќ)
+			primesNum.insert(primesNum.end(), i);
 		}
 	}
 

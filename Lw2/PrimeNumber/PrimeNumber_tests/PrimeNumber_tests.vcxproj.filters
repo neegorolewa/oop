@@ -26,5 +26,8 @@
     <ClInclude Include="..\PrimeNumber\GetPrimeNumberSet.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="debug_macros.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

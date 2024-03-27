@@ -1,5 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include <sstream>
+#include "debug_macros.h"
 #include "../../../catch.hpp"
 #include"../PrimeNumber/GetPrimeNumberSet.h"
 #include "../PrimeNumber/PrimeNumberFunc.h"
@@ -31,7 +32,7 @@ SCENARIO("Test 3")
 SCENARIO("Test 4")
 {
 	int upperBound = 2;
-	std::set<int> trueSet = {2};
+	std::set<int> trueSet = { 2 };
 	std::set<int> primesSet = GeneratePrimeNumbersSet(upperBound);
 	REQUIRE(primesSet == trueSet);
 }
@@ -48,6 +49,10 @@ SCENARIO("Check max upperBound and size set with primes number")
 {
 	int upperBound = 100'000'000;
 	int countPrimesNum = 5761455;
-	std::set<int> primesSet = GeneratePrimeNumbersSet(upperBound);
-	REQUIRE(countPrimesNum == primesSet.size());
+
+	DEBUG_IN_RELEASE
+	(
+		std::set<int> primesSet = GeneratePrimeNumbersSet(upperBound);
+		REQUIRE(countPrimesNum == primesSet.size());
+	)
 }
