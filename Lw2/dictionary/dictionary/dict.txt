@@ -1,3 +1,6 @@
-dog - собака
-house - дом
+apple-eater - едок яблок
 cat - кошка, кот, котяра
+dog - собака
+hello - привет
+house - дом
+the red square - красная площадь

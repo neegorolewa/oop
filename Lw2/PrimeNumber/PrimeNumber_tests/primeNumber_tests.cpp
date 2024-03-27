@@ -46,7 +46,7 @@ SCENARIO("Check min upperBound")
 
 SCENARIO("Check max upperBound and size set with primes number")
 {
-	int upperBound = 100000000;
+	int upperBound = 100'000'000;
 	int countPrimesNum = 5761455;
 	std::set<int> primesSet = GeneratePrimeNumbersSet(upperBound);
 	REQUIRE(countPrimesNum == primesSet.size());

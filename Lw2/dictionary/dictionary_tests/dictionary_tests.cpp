@@ -3,12 +3,14 @@
 #include "../../../catch.hpp"
 #include "../dictionary/dictionaryFunc.h"
 
+//придумать способ разделять символы (+ для хранения нескольких переводов)
 SCENARIO("Empty input file give empty dictionary")
 {
 	std::string dictFileName = "emptyDict.txt";
 	std::ofstream output;
 	std::ifstream dictFile = GetInputFile(dictFileName, output);
 
+	//длинный тип (изменить на короткий)
 	std::map<std::string, std::list<std::string>> dictFromFile;
 	std::map<std::string, std::list<std::string>> rightDict = {};
 
@@ -45,6 +47,7 @@ SCENARIO("Getting a word from the user")
 	std::istringstream wordDiffCase("DoG");
 	std::string rightWord = "dog";
 
+	//изучить инструкцию тестов в bdd стиле when than given
 	WHEN("Word in lower case")
 	{
 		std::string word = GetWordFromUser(wordLowerCase);

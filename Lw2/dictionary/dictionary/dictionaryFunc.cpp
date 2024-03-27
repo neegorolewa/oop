@@ -26,6 +26,8 @@ std::ifstream GetInputFile(const std::string& inputFileName, std::ostream& outpu
 	return inputFile;
 }
 
+//разделить функцию (исключить огромное количество параметров)
+//какие проблемы с выходными аргументами
 void TranslateWord(std::istream& input, std::ostream& output, std::string& word, std::map<std::string, std::list<std::string>>& dict, bool& changes)
 {
 	auto it = dict.find(word);
@@ -86,6 +88,7 @@ void TranslateWord(std::istream& input, std::ostream& output, std::string& word,
 	}
 }
 
+//не использовать прямой передачу ifstream (istream)!!!
 std::map<std::string, std::list<std::string>> GetDictionary(std::ifstream& file)
 {
 	std::map<std::string, std::list<std::string>> dict;
