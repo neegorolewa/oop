@@ -11,29 +11,19 @@ const std::string ENGINE_ALREADY_TURN_OFF = "the engine already turned off";
 const std::string TURN_OFF_ENGINE = "Engine: Off";
 const std::string ENGINE_ALREADY_STARTED = "the engine has already started";
 const std::string TURN_ON_ENGINE = "Engine: On";
-const int ZERO = 0;
+const int NEUTRAL_GEAR = 0;
+const int MIN_SPEED = 0;
 const int REVERSE = -1;
-const int FIRST = 1;
-const int SECOND = 2;
-const int THIRD = 3;
-const int FOURTH = 4;
-const int FIFTH = 5;
-const int TWENTY = 20;
-const int THIRTY = 30;
-const int FIFTY = 50;
-const int FORTY = 40;
-const int SIXTY = 60;
-const int NINETY = 90;
-const int ONE_HUNDRED_FIFTY = 150;
+const int MAX_SPEED = 150;
 
-enum class Direction 
+enum class Direction
 {
 	STANDING_STILL,
 	BACKWARD,
 	FORWARD,
 };
 
-class Car 
+class Car
 {
 public:
 
@@ -49,7 +39,16 @@ public:
 private:
 
 	bool m_engineOn = false;
-	int m_gear = ZERO;
-	int m_speed = ZERO;
-	Direction m_state = Direction::STANDING_STILL;
+	int m_gear = NEUTRAL_GEAR;
+	int m_speed = MIN_SPEED;
+	Direction m_dir = Direction::STANDING_STILL;
+	std::map<int, std::pair<int, int>> gearSpeedRange = {
+	{-1, {0, 20}},
+	{0, {0, 150}},
+	{1, {0, 30}},
+	{2, {20, 50}},
+	{3, {30, 60}},
+	{4, {40, 90}},
+	{5, {50, 150}},
+	};
 };

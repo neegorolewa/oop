@@ -1,6 +1,6 @@
 #include "GetPrimeNumberSet.h"
 
-// сделать чтобы тест на 100млн запускалс€ только в релизе, и написать в чат(ооп) (¬џѕќЋЌ≈Ќќ)
+// сделать чтобы тест на 100млн запускалс€ только в релизе (¬џѕќЋЌ≈Ќќ)
 std::set<int> GeneratePrimeNumbersSet(int upperBound)
 {
 	std::vector<int> isPrime(upperBound + 1, true);

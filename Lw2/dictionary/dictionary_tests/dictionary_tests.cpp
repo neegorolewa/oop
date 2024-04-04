@@ -50,6 +50,7 @@ SCENARIO("Getting a word from the user")
 	//изучить инструкцию тестов в bdd стиле when than given (ВЫПОЛНЕНО)
 	WHEN("Word in lower case")
 	{
+		
 		std::string word = GetWordFromUser(wordLowerCase);
 		CHECK(word == rightWord);
 	}

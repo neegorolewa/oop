@@ -21,7 +21,9 @@ void CheckUpperBoundInRange(int upperBound, std::ostream& output)
 	if (upperBound < MIN_INPUT || upperBound > MAX_INPUT)
 	{
 		output << "Invalid number, number should be in range [1..1000000]\n";
+		exit(1);
 	}
+	
 }
 
 void PrintPrimeNumbersSet(const std::set<int>& primesNumber, std::ostream& output)

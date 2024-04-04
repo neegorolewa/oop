@@ -12,7 +12,6 @@ int main()
 
 	std::set<int> primesNum = GeneratePrimeNumbersSet(upperBound);
 	PrintPrimeNumbersSet(primesNum, std::cout);
-	/*std::cout << primesNum.size();*/
 
 	return 0;
 

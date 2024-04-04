@@ -1,4 +1,4 @@
-#include "dictionaryFunc.h";
+#include "dictionaryFunc.h"
 
 const std::string SEPARATOR = ":";
 const std::string COMMA = ", ";
@@ -27,7 +27,7 @@ std::ifstream GetInputFile(const std::string& inputFileName, std::ostream& outpu
 	}
 	return inputFile;
 }
-
+//выбрать правильный способ передачи парметров словаря
 bool FindWordInDictionary(std::string& word, Dictionary dict)
 {
 	bool found = false;
@@ -138,7 +138,8 @@ Dictionary GetDictionary(std::istream& file)
 			while (std::getline(iss, translation, ','))
 			{
 				size_t start = translation.find_first_not_of(' ');
-				if (start != std::string::npos) {
+				if (start != std::string::npos)
+				{
 					translation = translation.substr(start);
 				}
 
@@ -173,6 +174,7 @@ std::string GetWordFromUser(std::istream& input)
 {
 	std::string word;
 	std::getline(input, word);
+	//разобраться с unsigned char
 	std::transform(word.begin(), word.end(), word.begin(), [](unsigned char ch)
 		{
 			return std::tolower(ch);

@@ -18,7 +18,7 @@
     <ClCompile Include="..\PrimeNumber\GetPrimeNumberSet.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="primeNumber_tests.cpp">
+    <ClCompile Include="PrimeNumber_tests.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

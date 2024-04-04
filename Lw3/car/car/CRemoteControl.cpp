@@ -57,6 +57,7 @@ bool CRemoteControl::Info(istream& args)
 	string direction;
 	Direction intDir = m_car.GetDirection();
 
+	//вынести в мап
 	switch (intDir)
 	{
 	case Direction::STANDING_STILL:
@@ -70,6 +71,7 @@ bool CRemoteControl::Info(istream& args)
 		break;
 	}
 
+	//сократить вывод
 	string info = (m_car.IsTurned())
 		? (TURN_ON_ENGINE + SEPARATOR + DIRECTION + direction + SEPARATOR +
 			SPEED + to_string(m_car.GetSpeed()) + SEPARATOR + GEAR + to_string(m_car.GetGear()))

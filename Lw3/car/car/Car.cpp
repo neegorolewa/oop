@@ -18,25 +18,8 @@ bool Car::IsTurned() const
 
 Direction Car::GetDirection() const
 {
-	if ((m_gear == ZERO) && (m_speed > 0))
-	{
-		return m_state;
-	}
-	else
-	{
-		if (m_speed == ZERO)
-		{
-			return Direction::STANDING_STILL;
-		}
-		else if ((m_gear == REVERSE) && (m_speed > 0))
-		{
-			return Direction::BACKWARD;
-		}
-		else
-		{
-			return Direction::FORWARD;
-		}
-	}
+	//возвращать m_dir
+	return m_dir;
 }
 
 int Car::GetSpeed() const
@@ -61,7 +44,7 @@ bool Car::TurnOnEngine()
 
 bool Car::TurnOffEngine()
 {
-	if ((m_engineOn && m_gear == ZERO && m_speed == ZERO) || (!m_engineOn))
+	if ((m_engineOn && m_gear == MIN_SPEED && m_speed == MIN_SPEED) || (!m_engineOn))
 	{
 		m_engineOn = false;
 
@@ -75,21 +58,16 @@ bool Car::TurnOffEngine()
 
 bool Car::SetGear(int gear)
 {
-	m_state = GetDirection();
-
-	if (gear < REVERSE && gear > FIFTH)
-	{
-		return false;
-	}
+	m_dir = GetDirection();
 
 	if (!m_engineOn)
 	{
 		return false;
 	}
 
-	if (((GetDirection() == Direction::BACKWARD) && (gear == FIRST)) 
+	if (((GetDirection() == Direction::BACKWARD) && (gear == 1)) 
 		|| ((GetDirection() == Direction::FORWARD) && (gear == REVERSE)) 
-		|| ((gear == REVERSE) && (m_speed != ZERO)))
+		|| ((gear == REVERSE) && (m_speed != MIN_SPEED)))
 	{
 		return false;
 	}
@@ -101,18 +79,15 @@ bool Car::SetGear(int gear)
 		return false;
 	}
 
-	int gearSpeedMin = ZERO;
-	int gearSpeedMax = ZERO;
-
-	gearSpeedMin = gearSpeed->second.first;
-	gearSpeedMax = gearSpeed->second.second;
+	int gearSpeedMin = gearSpeed->second.first;
+	int gearSpeedMax = gearSpeed->second.second;
 
 	if (m_speed < gearSpeedMin || m_speed > gearSpeedMax)
 	{
 		return false;
 	}
 
-	if (m_gear == ZERO)
+	if (m_gear == NEUTRAL_GEAR)
 	{
 		m_gear = gear;
 		return true;
@@ -125,7 +100,7 @@ bool Car::SetGear(int gear)
 
 bool Car::SetSpeed(int speed)
 {
-	if (speed < ZERO || speed > ONE_HUNDRED_FIFTY)
+	if (speed < MIN_SPEED || speed > MAX_SPEED)
 	{
 		return false;
 	}
@@ -135,12 +110,12 @@ bool Car::SetSpeed(int speed)
 		return false;
 	}
 
-	if (m_gear == ZERO && m_speed == ZERO)
+	if (m_gear == NEUTRAL_GEAR && m_speed == MIN_SPEED)
 	{
 		return false;
 	}
 
-	if (m_gear == ZERO && speed < m_speed)
+	if (m_gear == NEUTRAL_GEAR && speed < m_speed)
 	{
 		m_speed = speed;
 		return true;

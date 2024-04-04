@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\PrimeNumber\GetPrimeNumberSet.cpp" />
-    <ClCompile Include="primeNumber_tests.cpp" />
+    <ClCompile Include="PrimeNumber_tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\PrimeNumber\GetPrimeNumberSet.h" />
