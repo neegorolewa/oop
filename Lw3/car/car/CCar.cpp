@@ -1,15 +1,5 @@
 #include <iostream>
-#include "Car.h"
-
-std::map<int, std::pair<int, int>> gearSpeedRange = {
-	{REVERSE, {ZERO, TWENTY}},
-	{ZERO, {ZERO, ONE_HUNDRED_FIFTY}},
-	{FIRST, {ZERO, THIRTY}},
-	{SECOND, {TWENTY, FIFTY}},
-	{THIRD, {THIRTY, SIXTY}},
-	{FOURTH, {FORTY, NINETY}},
-	{FIFTH, {FIFTY, ONE_HUNDRED_FIFTY}},
-};
+#include "CCar.h"
 
 bool Car::IsTurned() const
 {
@@ -18,7 +8,6 @@ bool Car::IsTurned() const
 
 Direction Car::GetDirection() const
 {
-	//возвращать m_dir
 	return m_dir;
 }
 
@@ -39,7 +28,7 @@ bool Car::TurnOnEngine()
 		m_engineOn = true;
 	}
 
-	return true;
+	return m_engineOn;
 }
 
 bool Car::TurnOffEngine()
@@ -58,14 +47,12 @@ bool Car::TurnOffEngine()
 
 bool Car::SetGear(int gear)
 {
-	m_dir = GetDirection();
-
 	if (!m_engineOn)
 	{
 		return false;
 	}
 
-	if (((GetDirection() == Direction::BACKWARD) && (gear == 1)) 
+	if (((GetDirection() == Direction::BACKWARD) && (gear > 0)) 
 		|| ((GetDirection() == Direction::FORWARD) && (gear == REVERSE)) 
 		|| ((gear == REVERSE) && (m_speed != MIN_SPEED)))
 	{
@@ -87,6 +74,11 @@ bool Car::SetGear(int gear)
 		return false;
 	}
 
+	if (gear == 1 && m_dir == Direction::BACKWARD)
+	{
+		return false;
+	}
+
 	if (m_gear == NEUTRAL_GEAR)
 	{
 		m_gear = gear;
@@ -100,25 +92,27 @@ bool Car::SetGear(int gear)
 
 bool Car::SetSpeed(int speed)
 {
-	if (speed < MIN_SPEED || speed > MAX_SPEED)
-	{
-		return false;
-	}
-
 	if (!m_engineOn)
 	{
 		return false;
 	}
 
-	if (m_gear == NEUTRAL_GEAR && m_speed == MIN_SPEED)
+	if (m_gear == NEUTRAL_GEAR)
 	{
-		return false;
-	}
+		if (speed < m_speed)
+		{
+			m_speed = speed;
+			if (speed == MIN_SPEED)
+			{
+				m_dir = Direction::STANDING_STILL;
+			}
 
-	if (m_gear == NEUTRAL_GEAR && speed < m_speed)
-	{
-		m_speed = speed;
-		return true;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	auto gearSpeed = gearSpeedRange.find(m_gear);
@@ -131,13 +125,50 @@ bool Car::SetSpeed(int speed)
 	int gearSpeedMin = gearSpeed->second.first;
 	int gearSpeedMax = gearSpeed->second.second;
 
-	if (speed < gearSpeedMin || speed > gearSpeedMax)
+	switch (m_gear)
 	{
-		return false;
+	case REVERSE:
+		if (speed >= gearSpeedMin && speed <= gearSpeedMax)
+		{
+			m_speed = speed;
+			if (speed == MIN_SPEED)
+			{
+				m_dir = Direction::STANDING_STILL;
+			}
+			else
+			{
+				m_dir = Direction::BACKWARD;
+			}
+
+			return true;
+		}
+		break;
+	case 1:
+		if (speed >= gearSpeedMin && speed <= gearSpeedMax)
+		{
+			m_speed = speed;
+			if (speed == MIN_SPEED)
+			{
+				m_dir = Direction::STANDING_STILL;
+			}
+			else
+			{
+				m_dir = Direction::FORWARD;
+			}
+
+			return true;
+		}
+		break;
+	default:
+		if (speed >= gearSpeedMin && speed <= gearSpeedMax)
+		{
+			m_speed = speed;
+			return true;
+		}
+		break;
+
 	}
 
-	m_speed = speed;
-
-	return true;
+	return false;
 
 }

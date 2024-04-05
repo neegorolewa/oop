@@ -143,11 +143,11 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\car\Car.cpp" />
+    <ClCompile Include="..\car\CCar.cpp" />
     <ClCompile Include="car_tests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\car\Car.h" />
+    <ClInclude Include="..\car\CCar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

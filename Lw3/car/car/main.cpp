@@ -1,4 +1,4 @@
-#include "Car.h"
+#include "CCar.h"
 #include "CRemoteControl.h"
 #include "stdafx.h"
 
@@ -10,6 +10,7 @@ int main()
 
 	while (!std::cin.eof() && !std::cin.fail())
 	{
+		std::cout << MENU << std::endl;
 		std::cout << "> ";
 		if (!remoteControl.HandleCommand())
 		{

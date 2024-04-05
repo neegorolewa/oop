@@ -131,12 +131,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Car.cpp" />
+    <ClCompile Include="CCar.cpp" />
     <ClCompile Include="CRemoteControl.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Car.h" />
+    <ClInclude Include="CCar.h" />
     <ClInclude Include="CRemoteControl.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
