@@ -37,7 +37,9 @@ public:
 
 	double GetHeight() const;
 
-protected:
+	void Draw(std::shared_ptr<ICanvas> canvas) override;
+
+private:
 	CPoint m_leftTop;
 
 	double m_width, m_height;

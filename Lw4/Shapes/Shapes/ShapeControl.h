@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "ShapeCreator.h"
+#include "CCanvas.h"
 #include <memory>
 
 
@@ -13,7 +14,14 @@ public:
 
 	std::shared_ptr<IShape> GetMinPerimeterShape() const;
 
+	void DrawShapes();
+
 private:
+	const int WIDTH_WINDOW = 900;
+	const int HEIGHT_WINDOW = 900;
+	const std::string NAME_WINDOW = "window";
+
 	std::vector<std::shared_ptr<IShape>> m_shapes = {};
+	std::shared_ptr<ICanvas> m_canvas;
 };
 

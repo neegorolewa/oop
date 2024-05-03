@@ -65,3 +65,15 @@ CPoint CTriangle::GetTop3() const
     return m_top3;
 }
 
+void CTriangle::Draw(std::shared_ptr<ICanvas> canvas)
+{
+    canvas->FillPolygon({ m_top1,
+                          m_top2,
+                          m_top3 },
+        m_outlineColor,
+        m_fillColor);
+
+    canvas->DrawLine(m_top1, m_top2, m_outlineColor);
+    canvas->DrawLine(m_top2, m_top3, m_outlineColor);
+    canvas->DrawLine(m_top3, m_top1, m_outlineColor);
+}

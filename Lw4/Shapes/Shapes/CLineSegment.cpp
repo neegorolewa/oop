@@ -1,6 +1,6 @@
 #include "CLineSegment.h"
 
-const std::string CLineSegment::NAME = "line segment";
+const std::string CLineSegment::NAME = "line_segment";
 
 double CLineSegment::GetArea() const
 {
@@ -37,4 +37,9 @@ CPoint CLineSegment::GetStartedPoint() const
 CPoint CLineSegment::GetEndPoint() const
 {
 	return m_endPoint;
+}
+
+void CLineSegment::Draw(std::shared_ptr<ICanvas> canvas)
+{
+	canvas->DrawLine(m_startPoint, m_endPoint, m_outlineColor);
 }

@@ -32,7 +32,9 @@ public:
 
 	double GetRadius() const;
 
-protected:
+	void Draw(std::shared_ptr<ICanvas> canvas) override;
+
+private:
 	CPoint m_center;
 
 	double m_radius;

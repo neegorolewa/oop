@@ -25,6 +25,8 @@ public:
 
 	CPoint GetEndPoint() const;
 
-protected:
+	void Draw(std::shared_ptr<ICanvas> canvas) override;
+
+private:
 	CPoint m_startPoint, m_endPoint;
 };

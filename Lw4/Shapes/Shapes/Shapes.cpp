@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include "ShapeControl.h"
+#include "SFML/Graphics.hpp"
 
 int main()
 {
@@ -22,6 +23,8 @@ int main()
 
     std::cout << "Shape with max area:\n" << shapeController.GetMaxAreaShape()->ToString() << std::endl;
     std::cout << "Shape with min perimeter:\n" << shapeController.GetMinPerimeterShape()->ToString() << std::endl;
+
+    shapeController.DrawShapes();
 
     return 0;
 }

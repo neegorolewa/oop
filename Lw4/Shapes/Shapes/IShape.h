@@ -3,7 +3,8 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
-class IShape
+#include "ICanvasDrawable.h"
+class IShape : public ICanvasDrawable
 {
 public:
 	IShape(uint32_t outlineColor)

@@ -13,7 +13,7 @@ public:
 	virtual std::string ToString() const
 	{
 		std::stringstream output;
-		output << IShape::ToString() << std::endl;
+		output << IShape::ToString();
 		output << "FillColor: " << std::hex << std::setw(6) << std::setfill('0') << GetFillColor() << std::endl;
 		
 		return output.str();

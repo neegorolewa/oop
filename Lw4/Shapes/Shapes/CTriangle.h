@@ -1,6 +1,7 @@
 #pragma once
 #include "ISolidShape.h"
 #include "CPoint.h"
+#include "ICanvas.h"
 
 class CTriangle : public ISolidShape
 {
@@ -41,7 +42,9 @@ public:
 
 	CPoint GetTop3() const;
 
-protected:
+	void Draw(std::shared_ptr<ICanvas> canvas) override;
+
+private:
 	CPoint m_top1, m_top2, m_top3;
 
 	double GetSide(const CPoint& top1, const CPoint& top2) const;
