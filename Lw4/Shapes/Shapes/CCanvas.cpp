@@ -5,7 +5,7 @@
 
 void HexToRGB(uint32_t color, unsigned int& r, unsigned int& g, unsigned int& b)
 {
-    std::stringstream ss;
+    /*std::stringstream ss;
     ss << std::hex << color;
     std::string res(ss.str());
 
@@ -14,7 +14,11 @@ void HexToRGB(uint32_t color, unsigned int& r, unsigned int& g, unsigned int& b)
     std::stringstream ss2(res.substr(2, 2));
     ss2 >> std::hex >> g;
     std::stringstream ss3(res.substr(4, 2));
-    ss3 >> std::hex >> b;
+    ss3 >> std::hex >> b;*/
+
+    r = (color >> 16) & 0xFF;
+    g = (color >> 8) & 0xFF;
+    b = color & 0xFF;
 }
 
 void CCanvas::DrawLine(CPoint startPoint, CPoint endPoint, uint32_t lineColor)
@@ -26,7 +30,7 @@ void CCanvas::DrawLine(CPoint startPoint, CPoint endPoint, uint32_t lineColor)
     sf::Vertex vertex1(sf::Vector2f(startPoint.m_x, startPoint.m_y), sf::Color(r, g, b));
     sf::Vertex vertex2(sf::Vector2f(endPoint.m_x, endPoint.m_y), sf::Color(r, g, b));
 
-    sf::VertexArray line(sf::Lines, 2);
+    sf::VertexArray line(sf::Lines, 10);
     line[0] = vertex1;
     line[1] = vertex2;
 
