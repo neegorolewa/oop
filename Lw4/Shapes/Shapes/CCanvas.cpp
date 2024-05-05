@@ -5,17 +5,6 @@
 
 void HexToRGB(uint32_t color, unsigned int& r, unsigned int& g, unsigned int& b)
 {
-    /*std::stringstream ss;
-    ss << std::hex << color;
-    std::string res(ss.str());
-
-    std::stringstream ss1(res.substr(0, 2));
-    ss1 >> std::hex >> r;
-    std::stringstream ss2(res.substr(2, 2));
-    ss2 >> std::hex >> g;
-    std::stringstream ss3(res.substr(4, 2));
-    ss3 >> std::hex >> b;*/
-
     r = (color >> 16) & 0xFF;
     g = (color >> 8) & 0xFF;
     b = color & 0xFF;
