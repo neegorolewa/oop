@@ -68,6 +68,21 @@ TEST_CASE("Create numbers")
 			REQUIRE(number.ToDouble() == -0.4);
 		}
 	}
+
+	WHEN("denominator = 0")
+	{
+		THEN("will be thrown exception")
+		{
+			try
+			{
+				CRational(1, 0);
+			}
+			catch (std::invalid_argument e)
+			{
+				e.what() == "Denominator cannot be zero.";
+			}
+		}
+	}
 }
 
 TEST_CASE("Check unary operation")
@@ -117,7 +132,7 @@ TEST_CASE("Check binary operation + -")
 		CRational num1(1, 3);
 		CRational num2(1, 2);
 		CRational res = num1 + num2;
-		THEN("")
+		THEN("res = 5/6")
 		{
 			REQUIRE(res.GetNumerator() == 5);
 			REQUIRE(res.GetDenominator() == 6);
@@ -129,7 +144,7 @@ TEST_CASE("Check binary operation + -")
 	{
 		CRational num1(1, 3);
 		CRational res = num1 + 1;
-		THEN("")
+		THEN("res = 4/3")
 		{
 			REQUIRE(res.GetNumerator() == 4);
 			REQUIRE(res.GetDenominator() == 3);
@@ -141,7 +156,7 @@ TEST_CASE("Check binary operation + -")
 	{
 		CRational num1(1, 3);
 		CRational res = 1 + num1;
-		THEN("")
+		THEN("res = 4/3")
 		{
 			REQUIRE(res.GetNumerator() == 4);
 			REQUIRE(res.GetDenominator() == 3);
@@ -154,7 +169,7 @@ TEST_CASE("Check binary operation + -")
 		CRational num1(2, 3);
 		CRational num2(1, 3);
 		CRational res = num1 - num2;
-		THEN("")
+		THEN("res = 1/3")
 		{
 			REQUIRE(res.GetNumerator() == 1);
 			REQUIRE(res.GetDenominator() == 3);
@@ -166,7 +181,7 @@ TEST_CASE("Check binary operation + -")
 	{
 		CRational num1(1, 2);
 		CRational res = 1 - num1;
-		THEN("")
+		THEN("res = 1/2")
 		{
 			REQUIRE(res.GetNumerator() == 1);
 			REQUIRE(res.GetDenominator() == 2);
@@ -178,7 +193,7 @@ TEST_CASE("Check binary operation + -")
 	{
 		CRational num1(1, 2);
 		CRational res = num1 - 1;
-		THEN("")
+		THEN("res = -1/2")
 		{
 			REQUIRE(res.GetNumerator() == -1);
 			REQUIRE(res.GetDenominator() == 2);
@@ -194,7 +209,7 @@ TEST_CASE("+=, -=")
 		CRational num1(1, 2);
 		CRational num2(1, 6);
 		num1 += num2;
-		THEN("")
+		THEN("num1 = 2/3")
 		{
 			REQUIRE(num1.GetNumerator() == 2);
 			REQUIRE(num1.GetDenominator() == 3);
@@ -206,7 +221,7 @@ TEST_CASE("+=, -=")
 	{
 		CRational num(1, 2);
 		num += 1;
-		THEN("")
+		THEN("num = 3/2")
 		{
 			REQUIRE(num.GetNumerator() == 3);
 			REQUIRE(num.GetDenominator() == 2);
@@ -219,7 +234,7 @@ TEST_CASE("+=, -=")
 		CRational num1(1, 2);
 		CRational num2(1, 6);
 		num1 -= num2;
-		THEN("")
+		THEN("num1 = 1/3")
 		{
 			REQUIRE(num1.GetNumerator() == 1);
 			REQUIRE(num1.GetDenominator() == 3);
@@ -231,7 +246,7 @@ TEST_CASE("+=, -=")
 	{
 		CRational num(1, 2);
 		num -= 1;
-		THEN("")
+		THEN("res = -1/2")
 		{
 			REQUIRE(num.GetNumerator() == -1);
 			REQUIRE(num.GetDenominator() == 2);
@@ -247,7 +262,7 @@ TEST_CASE("* /")
 		CRational num1(2, 3);
 		CRational num2(1, 2);
 		CRational res = num1 * num2;
-		THEN("")
+		THEN("res = 2/6 -> 1/3")
 		{
 			REQUIRE(res.GetNumerator() == 1);
 			REQUIRE(res.GetDenominator() == 3);
@@ -259,7 +274,7 @@ TEST_CASE("* /")
 	{
 		CRational num(1, 2);
 		CRational res = num * (-3);
-		THEN("")
+		THEN("res = -3/2")
 		{
 			REQUIRE(res.GetNumerator() == -3);
 			REQUIRE(res.GetDenominator() == 2);
@@ -271,7 +286,7 @@ TEST_CASE("* /")
 	{
 		CRational num(2, 3);
 		CRational res = 7 * num;
-		THEN("")
+		THEN("res = 14/3")
 		{
 			REQUIRE(res.GetNumerator() == 14);
 			REQUIRE(res.GetDenominator() == 3);
@@ -284,7 +299,7 @@ TEST_CASE("* /")
 		CRational num1(2, 3);
 		CRational num2(1, 2);
 		CRational res = num2 / num1;
-		THEN("")
+		THEN("res = 3/4")
 		{
 			REQUIRE(res.GetNumerator() == 3);
 			REQUIRE(res.GetDenominator() == 4);
@@ -296,7 +311,7 @@ TEST_CASE("* /")
 	{
 		CRational num(1, 2);
 		CRational res = num / 5;
-		THEN("")
+		THEN("res = 1/10")
 		{
 			REQUIRE(res.GetNumerator() == 1);
 			REQUIRE(res.GetDenominator() == 10);
@@ -308,7 +323,7 @@ TEST_CASE("* /")
 	{
 		CRational num(2, 3);
 		CRational res = 7 / num;
-		THEN("")
+		THEN("res = 21/2")
 		{
 			REQUIRE(res.GetNumerator() == 21);
 			REQUIRE(res.GetDenominator() == 2);
@@ -324,7 +339,7 @@ TEST_CASE("*= /=")
 		CRational num1(1, 2);
 		CRational num2(2, 3);
 		num1 *= num2;
-		THEN("")
+		THEN("num1 = 2/6 -> 1/3")
 		{
 			REQUIRE(num1.GetNumerator() == 1);
 			REQUIRE(num1.GetDenominator() == 3);
@@ -335,7 +350,7 @@ TEST_CASE("*= /=")
 	{
 		CRational num(1, 2);
 		num *= 3;
-		THEN("")
+		THEN("num = 3/2")
 		{
 			REQUIRE(num.GetNumerator() == 3);
 			REQUIRE(num.GetDenominator() == 2);
@@ -347,7 +362,7 @@ TEST_CASE("*= /=")
 		CRational num1(1, 2);
 		CRational num2(2, 3);
 		num1 /= num2;
-		THEN("")
+		THEN("num1 = 3/4")
 		{
 			REQUIRE(num1.GetNumerator() == 3);
 			REQUIRE(num1.GetDenominator() == 4);
@@ -358,7 +373,7 @@ TEST_CASE("*= /=")
 	{
 		CRational num(1, 2);
 		num /= 3;
-		THEN("")
+		THEN("num 1/6")
 		{
 			REQUIRE(num.GetNumerator() == 1);
 			REQUIRE(num.GetDenominator() == 6);
@@ -373,7 +388,7 @@ TEST_CASE("== !=")
 		CRational num1(1, 2);
 		CRational num2(1, 2);
 		bool res = (num1 == num2);
-		THEN("")
+		THEN("res = true")
 		{
 			REQUIRE(res == true);
 		}
@@ -383,7 +398,7 @@ TEST_CASE("== !=")
 	{
 		CRational num1(4, 1);
 		bool res = (num1 == 4);
-		THEN("")
+		THEN("res = true")
 		{
 			REQUIRE(res == true);
 		}
@@ -393,7 +408,7 @@ TEST_CASE("== !=")
 	{
 		CRational num1(2, 3);
 		bool res = (3 == num1);
-		THEN("")
+		THEN("res = false")
 		{
 			REQUIRE(res == false);
 		}
@@ -404,7 +419,7 @@ TEST_CASE("== !=")
 		CRational num1(1, 2);
 		CRational num2(1, 2);
 		bool res = (num1 != num2);
-		THEN("")
+		THEN("res = false")
 		{
 			REQUIRE(res == false);
 		}
@@ -414,7 +429,7 @@ TEST_CASE("== !=")
 	{
 		CRational num1(1, 2);
 		bool res = (num1 != 7);
-		THEN("")
+		THEN("res = true")
 		{
 			REQUIRE(res == true);
 		}
@@ -424,7 +439,7 @@ TEST_CASE("== !=")
 	{
 		CRational num1(3, 1);
 		bool res = (3 != num1);
-		THEN("")
+		THEN("res false")
 		{
 			REQUIRE(res == false);
 		}
@@ -438,7 +453,7 @@ TEST_CASE("< <= > >=")
 		CRational num1(1, 2);
 		CRational num2(1, 3);
 		bool res = (num1 >= num2);
-		THEN("")
+		THEN("res = true")
 		{
 			REQUIRE(res == true);
 		}
@@ -448,7 +463,7 @@ TEST_CASE("< <= > >=")
 	{
 		CRational num1(8, 2);
 		bool res = (3 >= num1);
-		THEN("")
+		THEN("res = false")
 		{
 			REQUIRE(res == false);
 		}
@@ -459,7 +474,7 @@ TEST_CASE("< <= > >=")
 		CRational num1(1, 2);
 		CRational num2(1, 3);
 		bool res = (num1 <= num2);
-		THEN("")
+		THEN("res = false")
 		{
 			REQUIRE(res == false);
 		}
@@ -469,7 +484,7 @@ TEST_CASE("< <= > >=")
 	{
 		CRational num1(7, 2);
 		bool res = (3 <= num1);
-		THEN("")
+		THEN("res = true")
 		{
 			REQUIRE(res == true);
 		}
@@ -479,7 +494,7 @@ TEST_CASE("< <= > >=")
 	{
 		CRational num1(3, 1);
 		bool res = (num1 > 2);
-		THEN("")
+		THEN("res = true")
 		{
 			REQUIRE(res == true);
 		}
@@ -489,7 +504,7 @@ TEST_CASE("< <= > >=")
 	{
 		CRational num1(1, 2);
 		bool res = (num1 < 7);
-		THEN("")
+		THEN("res = true")
 		{
 			REQUIRE(res == true);
 		}
@@ -503,7 +518,7 @@ TEST_CASE("<< >>")
 		CRational number(-7, 15);
 		std::ostringstream output("");
 		output << number;
-		THEN("")
+		THEN("output = -7/15")
 		{
 			output.str() = "-7/15";
 		}
@@ -514,7 +529,7 @@ TEST_CASE("<< >>")
 		CRational number;
 		std::istringstream input("7/15");
 		input >> number;
-		THEN("")
+		THEN("num = 7, den = 15")
 		{
 			REQUIRE(number.GetNumerator() == 7);
 			REQUIRE(number.GetDenominator() == 15);
@@ -528,7 +543,7 @@ TEST_CASE("Compound Fraction")
 	{
 		CRational number(4, 3);
 		std::pair<int, CRational> result = number.ToCompoundFraction();
-		THEN("")
+		THEN("int part = 1, num = 1, den = 3")
 		{
 			REQUIRE(result.first == 1);
 			REQUIRE(result.second.GetNumerator() == 1);
@@ -540,7 +555,7 @@ TEST_CASE("Compound Fraction")
 	{
 		CRational number(-9, 4);
 		std::pair<int, CRational> result = number.ToCompoundFraction();
-		THEN("")
+		THEN("int part = -2, num = -1, den = 4")
 		{
 			REQUIRE(result.first == -2);
 			REQUIRE(result.second.GetNumerator() == -1);
@@ -552,7 +567,7 @@ TEST_CASE("Compound Fraction")
 	{
 		CRational number(3, 4);
 		std::pair<int, CRational> result = number.ToCompoundFraction();
-		THEN("")
+		THEN("int part = 0, num = 3, den = 4")
 		{
 			REQUIRE(result.first == 0);
 			REQUIRE(result.second.GetNumerator() == 3);
