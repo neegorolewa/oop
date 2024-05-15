@@ -129,7 +129,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="D:\oop\Lw5\CRational.cpp" />
+    <ClCompile Include="D:\oop\Lw5\CRational.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="D:\oop\Lw5\main.cpp" />
   </ItemGroup>
   <ItemGroup>
