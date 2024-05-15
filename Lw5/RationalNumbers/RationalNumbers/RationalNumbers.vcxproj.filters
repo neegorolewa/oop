@@ -15,15 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="D:\oop\Lw5\CRational.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="CRational.cpp">
+    <ClCompile Include="D:\oop\Lw5\main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CRational.h">
+    <ClInclude Include="D:\oop\Lw5\CRational.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

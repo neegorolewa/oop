@@ -14,34 +14,14 @@ CRational::CRational(int value) :
 
 int GetLeastCommonMultiple(int a, int b)
 {
-	return (a * b) / GetGreatestCommonDivisor(a, b);
+	//std::lcm
+	return std::lcm(a, b);
 }
 
 int GetGreatestCommonDivisor(int a, int b)
 {
-	if (a < 0)
-	{
-		a *= -1;
-	}
-
-	if (b < 0)
-	{
-		b *= -1;
-	}
-
-	while (a > 0 && b > 0)
-	{
-		if (a > b)
-		{
-			a %= b;
-		}
-		else
-		{
-			b %= a;
-		}
-	}
-
-	return a + b;
+	//std::gcd
+	return std::gcd(a, b);
 }
 
 void CRational::SetNormalizedNumber()
@@ -64,6 +44,7 @@ CRational::CRational(int numerator, int denominator) :
 {
 	if (denominator == 0)
 	{
+		//выбрасывать исключение, не создавать число (0, 1)
 		CRational();
 	}
 	else
@@ -84,8 +65,10 @@ int CRational::GetDenominator() const
 
 double CRational::ToDouble() const
 {
+	//изменить перевод в дабл
 	std::ostringstream output;
-
+	
+	//улучшить работу метода
 	output << std::fixed << std::setprecision(3) << static_cast<double>(m_numerator) / static_cast<double>(m_denominator);
 	std::string os = output.str();
 

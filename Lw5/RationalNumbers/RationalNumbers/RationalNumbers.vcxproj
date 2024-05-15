@@ -129,11 +129,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CRational.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="D:\oop\Lw5\CRational.cpp" />
+    <ClCompile Include="D:\oop\Lw5\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CRational.h" />
+    <ClInclude Include="D:\oop\Lw5\CRational.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <numeric>
 
 const char SLASH = '/';
 
@@ -21,6 +22,7 @@ public:
 
 	double ToDouble()const;
 
+	//Не возвращать const (+)
 	//унарный +, -
 	CRational const operator +()const;
 	CRational const operator -()const;
@@ -37,7 +39,8 @@ private:
 	void SetNormalizedNumber();
 };
 
-//бинарный +, -
+//бинарный +, - 
+//Разобраться какой способ является более предпочтительным и почему? (смочь объяснить)
 CRational operator +(const CRational& number1, const CRational& number2);
 CRational operator -(const CRational& number1, const CRational& number2);
 
