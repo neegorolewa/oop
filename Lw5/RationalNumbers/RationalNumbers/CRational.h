@@ -24,13 +24,13 @@ public:
 
 	//Не возвращать const (+)
 	//унарный +, -
-	CRational const operator +()const;
-	CRational const operator -()const;
+	CRational operator +()const;
+	CRational operator -();
 
-	CRational operator +=(const CRational& number);
-	CRational operator -=(const CRational& number);
-	CRational operator *=(const CRational& number);
-	CRational operator /=(const CRational& number);
+	CRational& operator +=(const CRational& number);
+	CRational& operator -=(const CRational& number);
+	CRational& operator *=(const CRational& number);
+	CRational& operator /=(const CRational& number);
 
 	std::pair<int, CRational> ToCompoundFraction()const;
 
@@ -39,8 +39,7 @@ private:
 	void SetNormalizedNumber();
 };
 
-//бинарный +, - 
-//Разобраться какой способ является более предпочтительным и почему? (смочь объяснить)
+//бинарный +, -
 CRational operator +(const CRational& number1, const CRational& number2);
 CRational operator -(const CRational& number1, const CRational& number2);
 

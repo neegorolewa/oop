@@ -136,7 +136,7 @@ TEST_CASE("Check binary operation + -")
 		{
 			REQUIRE(res.GetNumerator() == 5);
 			REQUIRE(res.GetDenominator() == 6);
-			REQUIRE(res.ToDouble() == 0.833);
+			REQUIRE(res.ToDouble() == static_cast<double>(5) / 6);
 		}
 	}
 
@@ -148,7 +148,7 @@ TEST_CASE("Check binary operation + -")
 		{
 			REQUIRE(res.GetNumerator() == 4);
 			REQUIRE(res.GetDenominator() == 3);
-			REQUIRE(res.ToDouble() == 1.333);
+			REQUIRE(res.ToDouble() == static_cast<double>(4) / 3);
 		}
 	}
 
@@ -160,7 +160,7 @@ TEST_CASE("Check binary operation + -")
 		{
 			REQUIRE(res.GetNumerator() == 4);
 			REQUIRE(res.GetDenominator() == 3);
-			REQUIRE(res.ToDouble() == 1.333);
+			REQUIRE(res.ToDouble() == static_cast<double>(4) / 3);
 		}
 	}
 
@@ -173,7 +173,7 @@ TEST_CASE("Check binary operation + -")
 		{
 			REQUIRE(res.GetNumerator() == 1);
 			REQUIRE(res.GetDenominator() == 3);
-			REQUIRE(res.ToDouble() == 0.333);
+			REQUIRE(res.ToDouble() == static_cast<double>(1) / 3);
 		}
 	}
 
@@ -213,7 +213,7 @@ TEST_CASE("+=, -=")
 		{
 			REQUIRE(num1.GetNumerator() == 2);
 			REQUIRE(num1.GetDenominator() == 3);
-			REQUIRE(num1.ToDouble() == 0.667);
+			REQUIRE(num1.ToDouble() == static_cast<double>(2) / 3);
 		}
 	}
 
@@ -238,7 +238,7 @@ TEST_CASE("+=, -=")
 		{
 			REQUIRE(num1.GetNumerator() == 1);
 			REQUIRE(num1.GetDenominator() == 3);
-			REQUIRE(num1.ToDouble() == 0.333);
+			REQUIRE(num1.ToDouble() == static_cast<double>(1) / 3);
 		}
 	}
 
@@ -266,7 +266,7 @@ TEST_CASE("* /")
 		{
 			REQUIRE(res.GetNumerator() == 1);
 			REQUIRE(res.GetDenominator() == 3);
-			REQUIRE(res.ToDouble() == 0.333);
+			REQUIRE(res.ToDouble() == static_cast<double>(1) / 3);
 		}
 	}
 
@@ -290,7 +290,7 @@ TEST_CASE("* /")
 		{
 			REQUIRE(res.GetNumerator() == 14);
 			REQUIRE(res.GetDenominator() == 3);
-			REQUIRE(res.ToDouble() == 4.667);
+			REQUIRE(res.ToDouble() == static_cast<double>(14) / 3);
 		}
 	}
 

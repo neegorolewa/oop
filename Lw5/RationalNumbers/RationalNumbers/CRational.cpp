@@ -1,4 +1,5 @@
 #include "CRational.h"
+#include <stdexcept>
 
 CRational::CRational() :
 	m_numerator(0),
@@ -14,13 +15,13 @@ CRational::CRational(int value) :
 
 int GetLeastCommonMultiple(int a, int b)
 {
-	//std::lcm
+	//std::lcm (+)
 	return std::lcm(a, b);
 }
 
 int GetGreatestCommonDivisor(int a, int b)
 {
-	//std::gcd
+	//std::gcd (+)
 	return std::gcd(a, b);
 }
 
@@ -44,8 +45,8 @@ CRational::CRational(int numerator, int denominator) :
 {
 	if (denominator == 0)
 	{
-		//выбрасывать исключение, не создавать число (0, 1)
-		CRational();
+		//Добавить в тест
+		throw std::invalid_argument("Denominator cannot be zero.");
 	}
 	else
 	{
@@ -65,50 +66,44 @@ int CRational::GetDenominator() const
 
 double CRational::ToDouble() const
 {
-	//изменить перевод в дабл
-	std::ostringstream output;
-	
-	//улучшить работу метода
-	output << std::fixed << std::setprecision(3) << static_cast<double>(m_numerator) / static_cast<double>(m_denominator);
-	std::string os = output.str();
-
-	return std::stod(os);
+	return static_cast<double>(m_numerator) / static_cast<double>(m_denominator);
 }
 
 //унарные оператор +
-CRational const CRational::operator+() const
+CRational CRational::operator+()const
 {
-	return CRational(m_numerator, m_denominator);
+	return *this;
 }
 
-//унарные оператор -
-CRational const CRational::operator-() const
+//унарные оператор - 
+CRational CRational::operator-()
 {
 	return CRational(m_numerator * (-1), m_denominator);
 }
 
-CRational CRational::operator+=(const CRational& number)
+CRational& CRational::operator+=(const CRational& number)
 {
-	*this = *this + number;
-
+	m_numerator = m_numerator * number.m_denominator + number.m_numerator * m_denominator;
+	m_denominator *= number.m_denominator;
+	SetNormalizedNumber();
 	return *this;
 }
 
-CRational CRational::operator-=(const CRational& number)
+CRational& CRational::operator-=(const CRational& number)
 {
 	*this = *this - number;
 
 	return *this;
 }
 
-CRational CRational::operator*=(const CRational& number)
+CRational& CRational::operator*=(const CRational& number)
 {
 	*this = *this * number;
 
 	return *this;
 }
 
-CRational CRational::operator/=(const CRational& number)
+CRational& CRational::operator/=(const CRational& number)
 {
 	*this = *this / number;
 
@@ -203,4 +198,3 @@ std::ostream& operator<<(std::ostream& oStream, const CRational& number)
 
 	return oStream;
 }
-
